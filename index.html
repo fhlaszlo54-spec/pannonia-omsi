@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pannónia Omsi Közösség</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --bg-card: #131b2e;
+            --accent-primary: #f59e0b;
+            --accent-green: #10b981;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --border-color: rgba(255, 255, 255, 0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-dark); color: var(--text-main); min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: rgba(19, 27, 46, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border-color); position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; }
+        .nav-container { max-width: 1300px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
+        .logo { font-size: 1.5rem; font-weight: 800; color: var(--accent-primary); text-decoration: none; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+        .nav-links { display: flex; gap: 10px; list-style: none; flex-wrap: wrap; }
+        .nav-links a { color: var(--text-main); text-decoration: none; font-weight: 600; font-size: 0.85rem; padding: 8px 12px; border-radius: 8px; transition: all 0.3s ease; cursor: pointer; }
+        .nav-links a:hover, .nav-links a.active { background: var(--accent-primary); color: #000; }
+        main { margin-top: 90px; flex: 1; padding: 2rem; max-width: 1300px; margin-left: auto; margin-right: auto; width: 100%; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .hero-banner { background: linear-gradient(135deg, rgba(19, 27, 46, 0.9), rgba(11, 15, 25, 0.95)); border: 1px solid var(--border-color); border-radius: 20px; padding: 4rem 3rem; text-align: center; margin-bottom: 3rem; }
+        .hero-banner h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 1rem; color: #fff; }
+        .hero-banner h1 span { color: var(--accent-primary); }
+        .hero-banner p { font-size: 1.05rem; color: var(--text-muted); max-width: 800px; margin: 0 auto 2rem auto; line-height: 1.6; }
+        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; overflow: hidden; transition: transform 0.3s ease; }
+        .card:hover { transform: translateY(-5px); border-color: rgba(245, 158, 11, 0.3); }
+        .card-img { height: 180px; background-size: cover; background-position: center; position: relative; background-color: #1f293d; }
+        .card-badge { position: absolute; top: 15px; right: 15px; background: rgba(0,0,0,0.7); padding: 5px 10px; font-size: 0.75rem; border-radius: 6px; color: var(--accent-primary); }
+        .card-body { padding: 1.5rem; }
+        .card-body h3 { font-size: 1.25rem; margin-bottom: 0.5rem; color: #fff; }
+        .card-body p { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; background: var(--accent-primary); color: #000; font-weight: 700; border-radius: 8px; text-decoration: none; transition: background 0.3s; }
+        .btn:hover { background: #d97706; }
+        .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 15px; }
+        .section-title i { color: var(--accent-primary); }
+        .download-box, .openomsi-box { border-radius: 20px; padding: 3rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px; }
+        .download-box { background: linear-gradient(135deg, #1e1b4b, #312e81); border: 1px solid rgba(99, 102, 241, 0.3); }
+        .download-box h2 { font-size: 2.2rem; color: #fff; }
+        .download-box p { color: #cbd5e1; max-width: 700px; }
+        .btn-download-mega { background: #6366f1; color: #fff; padding: 15px 40px; font-size: 1.1rem; font-weight: 700; border-radius: 12px; text-decoration: none; }
+        .openomsi-box { background: linear-gradient(135deg, #064e3b, #065f46); border: 1px solid rgba(16, 185, 129, 0.3); }
+        .openomsi-box h2 { font-size: 2.2rem; color: #fff; }
+        .openomsi-box p { color: #d1fae5; max-width: 700px; }
+        .btn-openomsi { background: var(--accent-green); color: #000; padding: 15px 40px; font-size: 1.1rem; font-weight: 700; border-radius: 12px; text-decoration: none; }
+        footer { background: var(--bg-card); border-top: 1px solid var(--border-color); text-align: center; padding: 1.5rem; color: var(--text-muted); margin-top: auto; }
+        @media (max-width: 768px) { .nav-container { flex-direction: column; gap: 15px; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a class="logo" onclick="switchTab('home')"><i class="fa-solid fa-bus-side"></i> Pannónia Omsi</a>
+            <ul class="nav-links">
+                <li><a onclick="switchTab('home')" class="tab-link active" id="link-home">Főoldal</a></li>
+                <li><a onclick="switchTab('buses')" class="tab-link" id="link-buses">Buszok</a></li>
+                <li><a onclick="switchTab('maps')" class="tab-link" id="link-maps">Pályák</a></li>
+                <li><a onclick="switchTab('paints')" class="tab-link" id="link-paints">Festések</a></li>
+                <li><a onclick="switchTab('extras')" class="tab-link" id="link-extras">Egyebek</a></li>
+                <li><a onclick="switchTab('omsi2')" class="tab-link" id="link-omsi2" style="color: #818cf8;">OMSI 2</a></li>
+                <li><a onclick="switchTab('openomsi')" class="tab-link" id="link-openomsi" style="color: #34d399;">OpenOMSI</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <!-- FŐOLDAL -->
+        <div id="home" class="section active">
+            <div class="hero-banner">
+                <h1>Üdvözöl a <span>Pannónia Omsi Közösség</span> oldalán!</h1>
+                <p>A hazai OMSI 2 szimulátor közösség modern bázisa, ahol minőségi magyar buszok, részletgazdag pályák és kiegészítők várnak rád.</p>
+                <a onclick="switchTab('buses')" class="btn" style="width: auto; padding: 12px 30px; display: inline-flex;"><i class="fa-solid fa-download"></i> Letöltések</a>
+            </div>
+            <h2 class="section-title"><i class="fa-solid fa-circle-info"></i> Rólunk</h2>
+            <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 2rem; color: var(--text-muted); line-height: 1.8;">
+                <p>A Pannónia Omsi Közösség azért jött létre, hogy összefogja a buszszimulátorok szerelmeseit. Célunk, hogy gyors, tiszta és modern felületen biztosítsunk letöltéseket a játékosok számára.</p>
+            </div>
+        </div>
+
+        <!-- BUSZOK -->
+        <div id="buses" class="section">
+            <h2 class="section-title"><i class="fa-solid fa-bus"></i> Buszok Letöltése</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('man_new_lions_city.jpg');">
+                        <span class="card-badge">Városi</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>MAN New Lion's City</h3>
+                        <p>Prémium városi autóbusz OMSI 2-höz.</p>
+                        <a href="https://drive.google.com/file/u/1/d/1rbOy7Ndv-3OPK7ZER5XMq4HwqRLdl2Ks/view?usp=drive_link" target="_blank" class="btn"><i class="fa-solid fa-download"></i> Letöltés</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PÁLYÁK -->
+        <div id="maps" class="section">
+            <h2 class="section-title"><i class="fa-solid fa-map-location-dot"></i> Pályák</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('dunantul_projekt.jpg');">
+                        <span class="card-badge">Fiktív</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Dunántúl Projekt</h3>
+                        <p>Részletgazdag magyar táj és vonalak.</p>
+                        <a href="#" target="_blank" class="btn"><i class="fa-solid fa-download"></i> Letöltés</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FESTÉSEK -->
+        <div id="paints" class="section">
+            <h2 class="section-title"><i class="fa-solid fa-paintbrush"></i> Festések</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('volanbusz_flotta.jpg');">
+                        <span class="card-badge">Volánbusz</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Volánbusz Flotta Pack</h3>
+                        <p>Hivatalos arculati festések.</p>
+                        <a href="#" target="_blank" class="btn"><i class="fa-solid fa-download"></i> Letöltés</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EGYEBEK -->
+        <div id="extras" class="section">
+            <h2 class="section-title"><i class="fa-solid fa-puzzle-piece"></i> Egyebek</h2>
+            <div class="grid-container">
+                <div class="card">
+                    <div class="card-img" style="background-image: url('magyar_obu.jpg');">
+                        <span class="card-badge">Mod</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Magyar OBU & Jegykezelő</h3>
+                        <p>Interaktív panel és script csomag.</p>
+                        <a href="#" target="_blank" class="btn"><i class="fa-solid fa-download"></i> Letöltés</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OMSI 2 -->
+        <div id="omsi2" class="section">
+            <div class="download-box">
+                <i class="fa-solid fa-gamepad" style="font-size: 3.5rem; color: #818cf8;"></i>
+                <h2>OMSI 2 - A Buszszimulátor</h2>
+                <p>Fedezd fel a városi vonalakat a hivatalos játékkal.</p>
+                <a href="https://store.steampowered.com/app/252530/OMSI_2_Steam_Edition/" target="_blank" class="btn-download-mega"><i class="fa-brands fa-steam"></i> Steam</a>
+            </div>
+        </div>
+
+        <!-- OPENOMSI -->
+        <div id="openomsi" class="section">
+            <div class="openomsi-box">
+                <i class="fa-solid fa-code-merge" style="font-size: 3.5rem; color: #34d399;"></i>
+                <h2>OpenOMSI Projekt</h2>
+                <p>Nyílt forráskódú motorfejlesztés.</p>
+                <a href="https://github.com" target="_blank" class="btn-openomsi"><i class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Pannónia Omsi Közösség</p>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            document.querySelectorAll('.tab-link').forEach(link => link.classList.remove('active'));
+            const activeLink = document.getElementById('link-' + tabId);
+            if (activeLink) activeLink.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
